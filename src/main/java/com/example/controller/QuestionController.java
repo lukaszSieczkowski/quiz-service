@@ -2,6 +2,7 @@ package com.example.controller;
 
 import com.example.model.JavaBasicQuestion;
 import com.example.repository.QuestionRepository;
+import com.example.service.QuestionsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,8 @@ import java.util.Optional;
 public class QuestionController {
     @Autowired
     QuestionRepository questionRepository;
+    @Autowired
+    QuestionsService questionsService;
 
     @GetMapping("/")
     public List<JavaBasicQuestion> showAllQuestons() {
@@ -23,13 +26,12 @@ public class QuestionController {
     }
 
     @GetMapping("/{id}")
-    public Optional<JavaBasicQuestion> showQuestionById(@PathVariable Long id){
+    public Optional<JavaBasicQuestion> showQuestionById(@PathVariable Long id) {
         return questionRepository.findById(id);
     }
 
     @GetMapping("/set")
-    public List<JavaBasicQuestion> showFortyRandomQuestions(){
-        return null;
+    public List<JavaBasicQuestion> showFortyRandomQuestions() {
+        return questionsService.getFortyQuestions();
     }
-
 }
